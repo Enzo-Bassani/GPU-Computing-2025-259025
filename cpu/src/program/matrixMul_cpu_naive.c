@@ -1,11 +1,13 @@
+#include "read.h"
+#include "utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "read.h"
 
 // Function to multiply matrix by vector
-double* multiplyMatrixVector(double* matrix, double* vector, int rows, int cols) {
-    double* result = (double*)malloc(rows * sizeof(double));
+double *multiplyMatrixVector(double *matrix, double *vector, int rows,
+                             int cols) {
+    double *result = (double *)malloc(rows * sizeof(double));
     if (result == NULL) {
         fprintf(stderr, "Memory allocation failed for result vector\n");
         exit(1);
@@ -32,10 +34,10 @@ int main() {
     // char filename[] = "../matrices/35588_bcsstk31_sorted.mtx";
     // char filename[] = "../matrices/12057441_hugetrace_00010_sorted.mtx";
     // Read the matrix from file
-    double* matrix = readMTXFile(filename, &rows, &cols, &nnz);
+    double *matrix = readMTXFile(filename, &rows, &cols, &nnz);
 
     // Create vector of ones
-    double* vector = (double*)malloc(cols * sizeof(double));
+    double *vector = (double *)malloc(cols * sizeof(double));
     if (vector == NULL) {
         fprintf(stderr, "Memory allocation failed for vector\n");
         free(matrix);
@@ -47,7 +49,15 @@ int main() {
     }
 
     // Multiply matrix by vector
-    double* result = multiplyMatrixVector(matrix, vector, rows, cols);
+    double *result = multiplyMatrixVector(matrix, vector, rows, cols);
+
+    // Create path for results file
+    char result_path[256];
+    sprintf(result_path, "../results/%s_result.txt",
+            strrchr(filename, '/') ? strrchr(filename, '/') + 1 : filename);
+    // printf("%s", result_path);
+    // Write results to file
+    writeVectorToFile(result_path, result, rows);
 
     // Print the result
     printf("Result vector after multiplication:\n");

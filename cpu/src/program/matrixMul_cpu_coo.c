@@ -1,12 +1,14 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "read.h"
 #include "timers.h"
+#include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 // Function to multiply matrix by vector
-double* multiplyMatrixVector(COOMatrix matrix, double* vector) {
+double *multiplyMatrixVector(COOMatrix matrix, double *vector) {
     // Allocate memory for result vector
-    double* result = (double*)calloc(matrix.numRows, sizeof(double));
+    double *result = (double *)calloc(matrix.numRows, sizeof(double));
     if (result == NULL) {
         fprintf(stderr, "Memory allocation failed for result vector\n");
         exit(1);
@@ -27,18 +29,17 @@ double* multiplyMatrixVector(COOMatrix matrix, double* vector) {
 int main() {
     printf("Running!\n");
 
-
     // char filename[] = "../matrices/1138_bus_sorted.mtx";
     // char filename[] = "../matrices/4884_bcsstk16_sorted.mtx";
     // char filename[] = "../matrices/10974_bcsstk17_sorted.mtx";
-    char filename[] = "../matrices/35588_bcsstk31_sorted.mtx";
-    // char filename[] = "../matrices/12057441_hugetrace_00010_sorted.mtx";
+    // char filename[] = "../matrices/35588_bcsstk31_sorted.mtx";
+    char filename[] = "../matrices/12057441_hugetrace_00010_sorted.mtx";
     // Read the matrix from file
     COOMatrix matrix = readMTXFileCOO(filename);
     int cols = matrix.numCols, rows = matrix.numRows;
 
     // Create vector of ones
-    double* vector = (double*)malloc(cols * sizeof(double));
+    double *vector = (double *)malloc(cols * sizeof(double));
     if (vector == NULL) {
         fprintf(stderr, "Memory allocation failed for vector\n");
         freeCOOMatrix(matrix);
@@ -52,10 +53,18 @@ int main() {
     // Multiply matrix by vector
     TIMER_DEF;
     TIMER_START;
-    double* result = multiplyMatrixVector(matrix, vector);
+    double *result = multiplyMatrixVector(matrix, vector);
     TIMER_STOP;
 
     double elapsed_time = TIMER_ELAPSED;
+
+    // Create path for results file
+    char result_path[256];
+    sprintf(result_path, "../results/%s_result.txt",
+            strrchr(filename, '/') ? strrchr(filename, '/') + 1 : filename);
+    // printf("%s", result_path);
+    // Write results to file
+    writeVectorToFile(result_path, result, rows);
 
     // Print the result
     printf("Result vector after multiplication:\n");

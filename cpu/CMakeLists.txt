@@ -41,6 +41,12 @@ add_executable(cpu_coo ${PROJECT_SOURCE_DIR}/src/program/matrixMul_cpu_coo.c ${S
 target_compile_options(cpu_coo PRIVATE -Wall -Wextra)  # Enable most warnings
 target_compile_options(cpu_coo PRIVATE -O3)  # Optimization level 3
 
+# Define the main executable
+add_executable(cpu_csr ${PROJECT_SOURCE_DIR}/src/program/cpu_csr.c ${SOURCES})
+# Example: GCC/Clang-specific flags
+target_compile_options(cpu_csr PRIVATE -Wall -Wextra)  # Enable most warnings
+target_compile_options(cpu_csr PRIVATE -O3)  # Optimization level 3
+
 # Optionally, link libraries to your project (modify as per your needs)
 # You can link to system libraries or third-party libraries (e.g., Boost, OpenGL, etc.)
 
