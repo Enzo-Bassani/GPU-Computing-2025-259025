@@ -1,4 +1,5 @@
 #include "move.h"
+#include "timers.h"
 #include "read.h"
 #include "utils.h"
 #include <cstdio>
@@ -10,6 +11,8 @@
 #include <sys/time.h>
 #include <time.h>
 
+#define WARMUP 3
+#define NITER 10
 // Function to multiply CSR matrix by a vector
 __global__ void multiplyMatrixVector(float *matrix, int rows, int cols, float *vector, float *result) {
     int i = blockDim.x * blockIdx.x + threadIdx.x;
@@ -67,27 +70,36 @@ int main() {
     int threads_per_block = 256;
     int num_blocks = (rows + threads_per_block - 1) / threads_per_block;
     printf("Launching %d blocks of %d threads\n", num_blocks, threads_per_block);
-    cudaEventRecord(start);
-    multiplyMatrixVector<<<num_blocks, 256>>>(d_matrix, rows, cols, d_vector, d_results);
-    cudaEventRecord(stop);
-    cudaError_t cudaerr = cudaDeviceSynchronize();
-    if (cudaerr != cudaSuccess)
-        printf("kernel launch failed with error \"%s\".\n", cudaGetErrorString(cudaerr));
-    cudaEventSynchronize(stop);
-    cudaError_t err = cudaGetLastError();
-    if (err != cudaSuccess) {
-        printf("CUDA Error: %s\n", cudaGetErrorString(err));
-    }
-    float milliseconds = 0;
-    cudaEventElapsedTime(&milliseconds, start, stop);
+    float timers[NITER];
+    float iter_time = 0;
+    for (int i = -WARMUP; i < NITER; i++) {
+        cudaMemset(d_results, 0, results_size);
+        cudaEventRecord(start);
+        multiplyMatrixVector<<<num_blocks, threads_per_block>>>(d_matrix, rows, cols, d_vector, d_results);
+        cudaEventRecord(stop);
 
+        cudaError_t cudaerr = cudaDeviceSynchronize();
+        if (cudaerr != cudaSuccess)
+            printf("kernel launch failed with error \"%s\".\n", cudaGetErrorString(cudaerr));
+
+        cudaEventSynchronize(stop);
+        cudaEventElapsedTime(&iter_time, start, stop);
+        if (i >= 0) {
+            timers[i] = iter_time;
+            printf("%d iter_time %f\n", i, iter_time);
+        }
+    }
     // Save results
     cudaMemcpy(h_results, d_results, results_size, cudaMemcpyDeviceToHost);
     char result_path[256];
     sprintf(result_path, "../results/%s_result.txt", strrchr(filename, '/') ? strrchr(filename, '/') + 1 : filename);
     writeVectorToFile(result_path, h_results, rows);
 
-    printf("Kernel Time: %f ms\n", milliseconds);
+    float geo_avg = geometric_mean(timers, NITER);
+    int num_FLOPs = 2 * rows * cols;
+    int num_bytes_accessed = (rows * cols * 2 + rows) * 4;
+    printStats(geo_avg, num_FLOPs, num_bytes_accessed);
+
 
     // Free allocated memory
     cudaFree(d_vector);
