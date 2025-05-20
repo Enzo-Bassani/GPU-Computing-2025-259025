@@ -1,5 +1,6 @@
 #include "read.h"
 #include "timers.h"
+#include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -23,10 +24,15 @@ float *readMTXFile(const char *filename, int *rows, int *cols, int *nnz) {
     // Read matrix dimensions and number of non-zeros
     sscanf(line, "%d %d %d", rows, cols, nnz);
 
+    if (std::max(*rows, *cols) > 11000) {
+        printf("Skipping matrix %s: too big for naive implementation\n", filename);
+        return NULL;
+    }
+
     // Allocate memory for the matrix (full size, initialized to zero)
     float *matrix = (float *)calloc((*rows) * (*cols), sizeof(float));
     if (matrix == NULL) {
-        fprintf(stderr, "Memory allocation failed for matrix\n");
+        fprintf(stderr, "Memory allocation failed for matrix %s\n", filename);
         fclose(file);
         exit(1);
     }
@@ -149,13 +155,11 @@ CSRMatrix readMTXFileCSR(const char *filename) {
     CSRMatrix matrix;
 
     // Allocate memory for the arrays
-    matrix.rowPtrs = (int *)malloc(
-        (rows + 1) * sizeof(int)); // One extra for the last row pointer
-    matrix.cols = (int *)malloc(nnz * sizeof(int));         // Column indices
-    matrix.values = (float *)malloc(nnz * sizeof(float)); // Non-zero values
+    matrix.rowPtrs = (int *)malloc((rows + 1) * sizeof(int)); // One extra for the last row pointer
+    matrix.cols = (int *)malloc(nnz * sizeof(int));           // Column indices
+    matrix.values = (float *)malloc(nnz * sizeof(float));     // Non-zero values
 
-    if (matrix.rowPtrs == NULL || matrix.cols == NULL ||
-        matrix.values == NULL) {
+    if (matrix.rowPtrs == NULL || matrix.cols == NULL || matrix.values == NULL) {
         fprintf(stderr, "Memory allocation failed for CSR matrix arrays\n");
         free(matrix.rowPtrs);
         free(matrix.cols);
