@@ -61,8 +61,10 @@ int main() {
             exit(1);
         }
 
+        // Seed the random number generator
+        srand(42);
         for (int i = 0; i < cols; i++) {
-            vector[i] = 1.0;
+            vector[i] = (float)rand();
         }
 
         TIMER_DEF;

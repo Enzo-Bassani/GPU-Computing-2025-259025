@@ -1,7 +1,7 @@
 #include "move.h"
-#include "timers.h"
 #include "read.h"
 #include "readcu.h"
+#include "timers.h"
 #include "utils.h"
 #include <cstdio>
 #include <cstdlib>
@@ -84,10 +84,11 @@ int main() {
         exit(1);
     }
 
+    // Seed the random number generator
+    srand(42);
     for (int i = 0; i < cols; i++) {
-        h_vector[i] = 1.0;
+        h_vector[i] = (float)rand();
     }
-
     float *d_vector = moveArrayToDevice(h_vector, cols);
 
     // Multiply matrix by vector

@@ -10,12 +10,10 @@
 #define NITER 10
 // Function to multiply matrix by vector
 void multiplyMatrixVector(float *matrix, float *vector, int rows, int cols, float *result) {
-    for (int i = 0; i < rows; i++) {
-        float sum = 0.0;
-        for (int j = 0; j < cols; j++) {
-            sum += matrix[i * cols + j] * vector[j];
+    for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < rows; i++) {
+            result[i] += matrix[i * cols + j] * vector[j];
         }
-        result[i] = sum;
     }
 }
 
@@ -82,7 +80,7 @@ int main() {
         int num_FLOPs = 2 * rows * cols;
         int num_bytes_accessed = (rows * cols * 2 + rows) * 4;
         printStats(geo_avg, num_FLOPs, num_bytes_accessed);
-        saveStatsToJson(geo_avg, num_FLOPs, num_bytes_accessed, filename, "cpu_naive");
+        saveStatsToJson(geo_avg, num_FLOPs, num_bytes_accessed, filename, "cpu_naive_columns");
 
         // Free allocated memory
         free(matrix);

@@ -59,7 +59,7 @@ int main() {
 
         int cols = h_matrix.numCols, rows = h_matrix.numRows;
 
-        // Create vector of ones
+        // Create vector of random values
         float *h_vector = (float *)std::malloc(cols * sizeof(float));
         if (h_vector == NULL) {
             fprintf(stderr, "Memory allocation failed for vector\n");
@@ -67,8 +67,10 @@ int main() {
             exit(1);
         }
 
+        // Seed the random number generator
+        srand(42);
         for (int i = 0; i < cols; i++) {
-            h_vector[i] = 1.0;
+            h_vector[i] = (float)rand();
         }
 
         float *d_vector = moveArrayToDevice(h_vector, cols);

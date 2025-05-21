@@ -21,3 +21,8 @@ add_executable(cpu_coo_struct ${PROJECT_SOURCE_DIR}/src/program/cpu_coo_struct.c
 target_link_libraries(cpu_coo_struct PRIVATE common)
 target_compile_options(cpu_coo_struct PRIVATE -Wall -Wextra)  # Enable most warnings
 target_compile_options(cpu_coo_struct PRIVATE -O3 -g)  # Optimization level 3
+
+add_executable(cpu_naive_columns ${PROJECT_SOURCE_DIR}/src/program/cpu_naive_columns.cpp)
+target_link_libraries(cpu_naive_columns PRIVATE common)
+target_compile_options(cpu_naive_columns PRIVATE -Wall -Wextra)  # Enable most warnings
+target_compile_options(cpu_naive_columns PRIVATE -O3 -g)  # Optimization level 3
