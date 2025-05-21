@@ -1,9 +1,0 @@
-{
-  "matrix": "3_10974_bcsstk17_sorted",
-  "algorithm": "cpu_coo_struct",
-  "time_ms": 0.513882,
-  "gflops": 0.855496,
-  "bandwidth_gbps": 8.554958,
-  "total_flops": 439624,
-  "total_bytes_accessed": 4396240
-}

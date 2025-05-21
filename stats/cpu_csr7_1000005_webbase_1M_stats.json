@@ -1,0 +1,9 @@
+{
+  "matrix": "7_1000005_webbase_1M",
+  "algorithm": "cpu_csr",
+  "time_ms": 2.817350,
+  "gflops": 2.204580,
+  "bandwidth_gbps": 17.486822,
+  "total_flops": 6211072,
+  "total_bytes_accessed": 49266492
+}

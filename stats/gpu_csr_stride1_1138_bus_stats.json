@@ -1,0 +1,9 @@
+{
+  "matrix": "1_1138_bus",
+  "algorithm": "gpu_csr_stride",
+  "time_ms": 0.004449,
+  "gflops": 1.167054,
+  "bandwidth_gbps": 10.071911,
+  "total_flops": 5192,
+  "total_bytes_accessed": 44808
+}

@@ -1,0 +1,9 @@
+{
+  "matrix": "3_10974_bcsstk17",
+  "algorithm": "cpu_naive_columns",
+  "time_ms": 133.262848,
+  "gflops": 1.807386,
+  "bandwidth_gbps": 7.229872,
+  "total_flops": 240857352,
+  "total_bytes_accessed": 963473304
+}

@@ -1,0 +1,9 @@
+{
+  "matrix": "8_525825_mc2depi",
+  "algorithm": "cpu_coo_struct",
+  "time_ms": 2.565030,
+  "gflops": 1.637583,
+  "bandwidth_gbps": 16.375830,
+  "total_flops": 4200450,
+  "total_bytes_accessed": 42004500
+}

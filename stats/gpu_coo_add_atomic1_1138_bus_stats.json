@@ -1,0 +1,9 @@
+{
+  "matrix": "1_1138_bus",
+  "algorithm": "gpu_coo_add_atomic",
+  "time_ms": 0.003378,
+  "gflops": 1.536937,
+  "bandwidth_gbps": 15.369365,
+  "total_flops": 5192,
+  "total_bytes_accessed": 51920
+}

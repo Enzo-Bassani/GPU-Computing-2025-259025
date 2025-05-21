@@ -1,0 +1,9 @@
+{
+  "matrix": "4_36057_onetone1",
+  "algorithm": "cpu_csr",
+  "time_ms": 0.193187,
+  "gflops": 3.531173,
+  "bandwidth_gbps": 23.426759,
+  "total_flops": 682176,
+  "total_bytes_accessed": 4525740
+}

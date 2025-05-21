@@ -1,0 +1,9 @@
+{
+  "matrix": "1_1138_bus",
+  "algorithm": "cpu_naive_columns",
+  "time_ms": 0.757830,
+  "gflops": 3.417769,
+  "bandwidth_gbps": 13.677084,
+  "total_flops": 2590088,
+  "total_bytes_accessed": 10364904
+}

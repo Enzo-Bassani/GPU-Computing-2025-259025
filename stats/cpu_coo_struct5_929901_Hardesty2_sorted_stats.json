@@ -1,9 +1,0 @@
-{
-  "matrix": "5_929901_Hardesty2_sorted",
-  "algorithm": "cpu_coo_struct",
-  "time_ms": 4.815209,
-  "gflops": 1.670013,
-  "bandwidth_gbps": 16.700131,
-  "total_flops": 8041462,
-  "total_bytes_accessed": 80414620
-}

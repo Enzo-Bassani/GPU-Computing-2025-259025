@@ -1,0 +1,9 @@
+{
+  "matrix": "6_923136_Emilia_923",
+  "algorithm": "gpu_coo_add_atomic",
+  "time_ms": 0.491219,
+  "gflops": 85.355745,
+  "bandwidth_gbps": 853.557450,
+  "total_flops": 41928342,
+  "total_bytes_accessed": 419283420
+}
