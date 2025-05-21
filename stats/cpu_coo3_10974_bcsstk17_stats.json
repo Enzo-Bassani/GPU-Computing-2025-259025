@@ -6,5 +6,6 @@
   "bandwidth_gbps": 9.487331,
   "total_flops": 439624,
   "total_bytes_accessed": 4396240,
-  "cache_miss": 0.2
+  "cache_miss": 0.2,
+  "cache_miss_lld": 0
 }
