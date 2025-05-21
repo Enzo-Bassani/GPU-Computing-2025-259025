@@ -1,5 +1,8 @@
 #include <cstdio>
+#include <cstring>
 #include <dirent.h>
+#include <iostream>
+#include <ostream>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
@@ -92,7 +95,7 @@ std::vector<std::string> getFilenames() {
     if ((dir = opendir("../matrices/")) != NULL) {
         while ((entry = readdir(dir)) != NULL) {
             // Skip directories (including "." and "..")
-            if (entry->d_type != DT_DIR) {
+            if (entry->d_type != DT_DIR && strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
                 std::string path = "../matrices/";
                 path += entry->d_name;
                 filenames.push_back(path);
