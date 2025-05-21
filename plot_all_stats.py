@@ -10,6 +10,7 @@ from random import shuffle
 
 # Use seaborn style
 sns.set(style="whitegrid")
+# sns.set(style="ticks")
 # colors = ["#e63946",  # vibrant red
 #           "#f4a261",  # warm orange
 #           "#2a9d8f",  # teal-green
@@ -107,7 +108,7 @@ def plot_and_save_bar(programs, data, title, ylabel, filename, color=None, log_s
     plt.xlabel("Algorithm", fontsize=14)
     plt.xticks(rotation=45, ha='right', fontsize=11)
     plt.yticks(fontsize=11)
-    plt.grid(True, axis='y', linestyle='--', alpha=0.7, zorder=0)  # Set grid to lower zorder
+    # Grid removed as it's unnecessary with the labels
 
     if log_scale and min(data) > 0:
         plt.yscale('log')
@@ -183,6 +184,9 @@ def plot_and_save_bar(programs, data, title, ylabel, filename, color=None, log_s
 
 def create_plots_for_matrix(matrix_name, stats, output_dir="plots"):
     """Create and save plots for a specific matrix."""
+    # Use ticks style (no grid) for individual matrix plots
+    original_style = sns.axes_style()
+    sns.set_style("ticks")
     # Extract data
     programs = [stat['algorithm'] for stat in stats]
     exec_times = [stat['time_ms'] for stat in stats]
@@ -239,6 +243,8 @@ def create_plots_for_matrix(matrix_name, stats, output_dir="plots"):
             cache_misses=sorted_cache_misses
         )
 
+    # Reset to original style
+    sns.set_style(original_style)
     return display_name
 
 def create_summary_plots(matrices, output_dir="plots"):
@@ -536,7 +542,7 @@ MATRIX_EXCEPTIONS = [
 ]
 
 ALGO_EXCEPTIONS = [
-    "cpu_naive"
+    # "cpu_naive"
 ]
 
 def main():
