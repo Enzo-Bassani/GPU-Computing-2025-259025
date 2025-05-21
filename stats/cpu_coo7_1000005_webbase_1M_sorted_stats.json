@@ -1,0 +1,9 @@
+{
+  "matrix": "7_1000005_webbase_1M_sorted",
+  "algorithm": "cpu_coo",
+  "time_ms": 4.148363,
+  "gflops": 1.497235,
+  "bandwidth_gbps": 14.972346,
+  "total_flops": 6211072,
+  "total_bytes_accessed": 62110720
+}

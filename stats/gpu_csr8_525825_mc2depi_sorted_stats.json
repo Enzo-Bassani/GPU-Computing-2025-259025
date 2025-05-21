@@ -1,0 +1,9 @@
+{
+  "matrix": "8_525825_mc2depi_sorted",
+  "algorithm": "gpu_csr",
+  "time_ms": 0.009092,
+  "gflops": 461.986426,
+  "bandwidth_gbps": 3465.912805,
+  "total_flops": 4200450,
+  "total_bytes_accessed": 31512600
+}

@@ -1,0 +1,9 @@
+{
+  "matrix": "5_929901_Hardesty2_sorted",
+  "algorithm": "gpu_csr_stride",
+  "time_ms": 0.012416,
+  "gflops": 647.690358,
+  "bandwidth_gbps": 4784.915895,
+  "total_flops": 8041462,
+  "total_bytes_accessed": 59407584
+}
